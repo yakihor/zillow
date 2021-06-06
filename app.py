@@ -52,10 +52,10 @@ def thread1(i):
     df.to_csv('info\\zillow'+ str(i) +'.csv')
 
 row_count = [0] * 546
-for i in range(300, 400):
+for i in range(100, 200):
     # threading.Thread(target=thread1, args=[i]).start();
-    print ('Thread ' + str(i) + ' started! =>')
-    df = pd.read_csv('./coord/cood'+str(i)+'.csv')
+    print (f'Thread {i} started! =>')
+    df = pd.read_csv(f'./coord/cood{i}.csv')
     print (df.columns)
     df = df.reindex(columns=list(df.columns) + ["Street Address","Year Built","Square Footage","Lot Size","Previous Sold","Tax"])
     print (df.columns)
@@ -65,4 +65,4 @@ for i in range(300, 400):
     df["Street Address"] = addresses
 
     print ('Getting addresses done! ' + str(row_count[i]) + ' rows')
-    df.to_csv('./info/zillow'+ str(i) +'.csv')
+    df.to_csv(f'./zillow{i}.csv')
