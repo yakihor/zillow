@@ -1,1 +1,1 @@
-web:scale python app.py
+free:scale python app.py
