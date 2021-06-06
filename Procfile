@@ -1,1 +1,1 @@
-free: python app.py
+ps:scale python app.py
