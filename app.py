@@ -23,7 +23,7 @@ def get_address(df, idx, geolocator, lat_field, lon_field, total):
     location = geolocator.reverse((df[lat_field], df[lon_field]))
     with Lock():
         row_count[idx] += 1
-        percent = ("{0:." + str(decimals) + "f}").format(100 * (row_count[idx] / float(total)))
+        percent = ("{0:." + str(1) + "f}").format(100 * (row_count[idx] / float(total)))
         print (f'{percent}% completed! => {row_count[idx]} / {total} rows')
         # printProgressBar(row_count[idx], total)
 
