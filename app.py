@@ -52,7 +52,7 @@ def thread1(i):
     df.to_csv('info\\zillow'+ str(i) +'.csv')
 
 row_count = [0] * 546
-for i in range(300, 400):
+for i in range(400, 500):
     # threading.Thread(target=thread1, args=[i]).start();
     print (f'Thread {i} started! =>')
     df = pd.read_csv(f'./coord/cood{i}.csv')
