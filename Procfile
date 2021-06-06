@@ -1,1 +1,1 @@
-ps:scale python app.py
+web:scale python app.py
