@@ -54,7 +54,9 @@ for i in range(100, 546):
     # threading.Thread(target=thread1, args=[i]).start();
     print ('Thread ' + str(i) + ' started! =>')
     df = pd.read_csv('./coord/cood'+str(i)+'.csv')
+    print (df.columns)
     df = df.reindex(columns=list(df.columns) + ["Street Address","Year Built","Square Footage","Lot Size","Previous Sold","Tax"])
+    print (df.columns)
 
     row_count[i] = 0    
     addresses = df.apply(get_address, axis=1, idx=i, geolocator=geolocator, lat_field='Latitude', lon_field='Longitude', total=3600)
