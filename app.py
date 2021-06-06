@@ -24,7 +24,7 @@ def get_address(df, idx, geolocator, lat_field, lon_field, total):
     with Lock():
         row_count[idx] += 1
         percent = ("{0:." + str(1) + "f}").format(100 * (row_count[idx] / float(total)))
-        print (f'{percent}% completed! => {row_count[idx]} / {total} rows')
+        print (f'Process {idx}: {percent}% completed! => {row_count[idx]} / {total} rows')
         # printProgressBar(row_count[idx], total)
 
     # postcode = 0
