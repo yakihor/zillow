@@ -4,6 +4,14 @@ import pandas as pd
 import threading
 from threading import Lock
 
+import boto3
+s3 = boto3.resource(
+    service_name='s3',
+    region_name='us-east-2',
+    aws_access_key_id='AKIAZINQ5KGBA2TFDRUC',
+    aws_secret_access_key='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'
+)
+
 import geopy
 from geopy.geocoders import Nominatim
 geopy.geocoders.options.default_user_agent = "yakymenkoihor0@gmail.com"
@@ -25,14 +33,6 @@ def get_address(df, idx, geolocator, lat_field, lon_field, total):
         row_count[idx] += 1
         percent = ("{0:." + str(1) + "f}").format(100 * (row_count[idx] / float(total)))
         print (f'Process {idx}: {percent}% completed! => {row_count[idx]} / {total} rows')
-        # printProgressBar(row_count[idx], total)
-
-    # postcode = 0
-    # address = location.raw['display_name']
-    # if 'postcode' in location.raw['address']:
-    #     postcode = location.raw['address']['postcode']
-    
-    # print (location.raw['display_name'].split())
 
     return location.raw['display_name']
 
@@ -51,6 +51,10 @@ def thread1(i):
     print ('Getting addresses done! ' + str(row_count[i]) + ' rows')
     df.to_csv('info\\zillow'+ str(i) +'.csv')
 
+# Print out bucket names
+for bucket in s3.buckets.all():
+    print(bucket.name)
+
 row_count = [0] * 546
 for i in range(500, 546):
     # threading.Thread(target=thread1, args=[i]).start();
@@ -66,3 +70,7 @@ for i in range(500, 546):
 
     print ('Getting addresses done! ' + str(row_count[i]) + ' rows')
     df.to_csv(f'zillow{i}.csv')
+    s3.Bucket('zillowinfo').upload_file(Filename=f'zillow{i}.csv', Key=f'zillow{i}.csv')
+
+    for obj in s3.Bucket('zillowinfo').objects.all():
+        print(obj)
